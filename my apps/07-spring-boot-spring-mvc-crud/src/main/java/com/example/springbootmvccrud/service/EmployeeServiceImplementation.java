@@ -1,41 +1,51 @@
 package com.example.springbootmvccrud.service;
 
-import com.example.springbootmvccrud.dao.EmployeeDAO;
+import com.example.springbootmvccrud.dao.EmployeeRepository;
 import com.example.springbootmvccrud.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeServiceImplementation implements EmployeeService {
-    private EmployeeDAO employeeDAO;
+    private EmployeeRepository employeeRepository;
 
     @Autowired
-    public EmployeeServiceImplementation(EmployeeDAO employeeDAO){
-        this.employeeDAO = employeeDAO;
+    public EmployeeServiceImplementation(EmployeeRepository employeeRepository){
+        this.employeeRepository = employeeRepository;
     }
 
     @Override
     public List<Employee> findAll(){
-        return employeeDAO.findAll();
+        return employeeRepository.findAll();
+    }
+
+    @Override
+    public List<Employee> findAllByOrderByIdDesc(){
+        return employeeRepository.findAllByOrderByIdDesc();
     }
 
     @Override
     public Employee findById(int id) {
-        return employeeDAO.findById(id);
+        Employee employee = null;
+
+        Optional<Employee> result = employeeRepository.findById(id);
+        if (result.isPresent()){
+            employee = result.get();
+        }
+
+        return employee;
     }
 
     @Override
-    @Transactional
     public void upsertEmployee(Employee employee) {
-        employeeDAO.upsertEmployee(employee);
+        employeeRepository.save(employee);
     }
 
     @Override
-    @Transactional
     public void deleteEmployee(int id) {
-        employeeDAO.deleteEmployee(id);
+        employeeRepository.deleteById(id);
     }
 }

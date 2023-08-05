@@ -27,7 +27,7 @@ public class EmployeeController {
 	public String listEmployees(Model theModel) {
 
 		// add to the spring model
-		List<Employee> employees = employeeService.findAll();
+		List<Employee> employees = employeeService.findAllByOrderByIdDesc();
 		theModel.addAttribute("employees", employees);
 
 		return "employees/list-employees";
