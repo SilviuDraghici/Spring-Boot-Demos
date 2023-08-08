@@ -52,6 +52,8 @@ public class SecurityConfig {
                         .loginProcessingUrl("/authenticateTheUser")
                         .permitAll());
 
+        http.logout(logout -> logout.permitAll());
+
         return http.build();
     }
 
