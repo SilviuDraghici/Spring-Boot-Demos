@@ -4,10 +4,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DemosecurityApplication {
+public class DemoSecurityApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemosecurityApplication.class, args);
+		SpringApplication.run(DemoSecurityApplication.class, args);
+		System.out.println("Application Started");
 	}
 
 }
