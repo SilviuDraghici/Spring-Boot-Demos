@@ -38,7 +38,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilter(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(configurer ->
             configurer
-                    .requestMatchers(HttpMethod.GET, "/**").hasRole("EMPLOYEE")
+                    .requestMatchers(HttpMethod.GET, "/").hasRole("EMPLOYEE")
+                    .requestMatchers(HttpMethod.GET, "/leaders/**").hasRole("MANAGER")
+                    .requestMatchers(HttpMethod.GET, "/systems/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.POST, "/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.PUT, "/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/**").hasRole("ADMIN")

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Company Home Page</title>
@@ -7,10 +8,27 @@
 
 <body>
 
-    <h2>Company Home Page - Yoohoo - Silly Goose - NO SOUP!!!</h2>
+    <h2>Company Home Page</h2>
     <hr>
     <p>
         Welcome to the company home page!
+    </p>
+
+    <hr>
+    <p>
+        User: <span sec:authentication="principal.username"></span>
+        <br><br>
+        Role(s): <span sec:authentication="principal.authorities"></span>
+    </p>
+
+    <hr>
+
+    <p sec:authorize ="hasRole('MANAGER')">
+        <a th:href="@{/leaders}">Leadership Meeting</a>
+    </p>
+
+    <p sec:authorize ="hasRole('ADMIN')">
+        <a th:href="@{/systems}">IT Systems Meeting</a>
     </p>
 
     <hr>
