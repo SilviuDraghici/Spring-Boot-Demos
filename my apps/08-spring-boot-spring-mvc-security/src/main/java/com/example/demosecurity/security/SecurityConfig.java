@@ -46,7 +46,11 @@ public class SecurityConfig {
         http.httpBasic(Customizer.withDefaults());
         http.csrf(csrf -> csrf.disable());
 
-        http.formLogin(form -> form.permitAll());
+        http.formLogin(form ->
+                form
+                        .loginPage("/customLoginPage")
+                        .loginProcessingUrl("/authenticateTheUser")
+                        .permitAll());
 
         return http.build();
     }
