@@ -44,6 +44,7 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.POST, "/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.PUT, "/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/**").hasRole("ADMIN")
+                    .anyRequest().authenticated()
         );
         http.httpBasic(Customizer.withDefaults());
         http.csrf(csrf -> csrf.disable());
@@ -53,6 +54,9 @@ public class SecurityConfig {
                         .loginPage("/customLoginPage")
                         .loginProcessingUrl("/authenticateTheUser")
                         .permitAll());
+
+        http.exceptionHandling(configurer ->
+                configurer.accessDeniedPage("/accessDenied"));
 
         http.logout(logout -> logout.permitAll());
 
